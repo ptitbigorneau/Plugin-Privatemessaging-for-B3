@@ -1,0 +1,9 @@
+<configuration plugin="privatemessaging">
+    <settings name="settings">
+<!--min level required to use privatemessaging -->
+        <set name="userminlevel">20</set>
+<!--min level required to receive a private message -->
+        <set name="clientminlevel">2</set>
+    </settings>
+</configuration>
+
