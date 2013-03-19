@@ -1,7 +1,7 @@
 # PrivateMessaging Plugin
 
 __author__  = 'PtitBigorneau www.ptitbigorneau.fr'
-__version__ = '1.0.0'
+__version__ = '1.1'
 
 
 import b3,threading, thread, re
@@ -14,6 +14,8 @@ from time import gmtime, strftime
 class PrivatemessagingPlugin(b3.plugin.Plugin):
 
     _adminPlugin = None    
+    _userminlevel = 20
+    _clientminlevel = 2
 
     def onStartup(self):
         
@@ -30,8 +32,17 @@ class PrivatemessagingPlugin(b3.plugin.Plugin):
 
     def onLoadConfig(self):
 
-        self._userminlevel = self.config.getint('settings', 'userminlevel')
-        self._clientminlevel = self.config.getint('settings', 'clientminlevel')
+        try:
+            self._userminlevel = self.config.getint('settings', 'userminlevel')
+        except Exception, err:
+            self.warning("Using default value %s for PrivateMessaging. %s" % (self._userminlevel, err))
+        self.debug('PrivateMessaging : %s' % self._userminlevel)
+
+        try:
+            self._clientminlevel = self.config.getint('settings', 'clientminlevel')
+        except Exception, err:
+            self.warning("Using default value %s for PrivateMessaging. %s" % (self._clientminlevel, err))
+        self.debug('PrivateMessaging : %s' % self._clientminlevel)
 
     def onEvent(self, event):
 
